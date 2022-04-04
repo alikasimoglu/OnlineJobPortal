@@ -1,5 +1,6 @@
 .env
 .idea
 mainsite/migrations
+profiles/migrations
 media
 db.sqlite3

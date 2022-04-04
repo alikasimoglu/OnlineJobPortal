@@ -36,7 +36,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'mainsite.apps.MainsiteConfig',
     'profiles',
-    'recruiters',
     # third party
     'ckeditor',
     'ckeditor_uploader',
@@ -109,6 +108,9 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+# Extended User Model Settings
+AUTH_USER_MODEL = 'profiles.Profile'
 
 # Internationalization
 LANGUAGE_CODE = 'tr-TR'
