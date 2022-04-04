@@ -35,6 +35,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'mainsite.apps.MainsiteConfig',
+    'profiles',
+    'recruiters',
     # third party
     'ckeditor',
     'ckeditor_uploader',
