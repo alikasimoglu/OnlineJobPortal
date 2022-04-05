@@ -4,8 +4,12 @@ from django.urls import path, include
 from config import settings
 
 urlpatterns = [
+    # MAIN URLS
     path('controlme/', admin.site.urls),
-    # path('', include('mainsite.urls')),
+    path('', include('mainsite.urls')),
+    path('profiller/', include('profiles.urls')),
+
+    # ADDITIONAL URLS
     path('ckeditor/', include('ckeditor_uploader.urls')),
     # path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
     # path('robots.txt', TemplateView.as_view(template_name="robots.txt", content_type='text/plain')),

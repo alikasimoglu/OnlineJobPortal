@@ -4,15 +4,16 @@ from imagekit.models import ImageSpecField
 from pilkit.processors import ResizeToFill, Transpose
 from django.utils.text import slugify
 from django.urls import reverse
+from profiles.models import Profile
 
 
 class Recruiter(models.Model):
     is_active = models.BooleanField("Durum (Aktif/Pasif)", default=True)
-    profile = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Profil", primary_key=True)
+    profile = models.OneToOneField(Profile, on_delete=models.CASCADE, verbose_name="Profil", primary_key=True)
     email = models.EmailField("Email Adresi", unique=True)
     first_name = models.CharField("İsim", max_length=50)
     last_name = models.CharField("Soyisim", max_length=50)
-    phone = models.CharField("Telefon", max_length=15)
+    phone = models.CharField("Telefon", max_length=15, blank=True)
     country = models.CharField("Ülke", max_length=50)
     avatar = models.ImageField("Profil Resmi", upload_to='img/avatars/', help_text="Zorunlu alan değildir.", blank=True, null=True)
     avatar_thumbnail_500x500 = ImageSpecField(source='avatar', processors=[Transpose(), ResizeToFill(500, 500)], format='WEBP', options={'quality': 80})
@@ -26,9 +27,12 @@ class Recruiter(models.Model):
     def __str__(self):
         return self.email
 
+    def get_full_name(self):
+        return self.first_name + "-" + self.last_name
+
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(str(self.pk) + "-" + str(self.first_name) + "-" + str(self.last_name))
+            self.slug = slugify(str(self.pk) + "-" + str(self.get_full_name()))
         super(Recruiter, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
