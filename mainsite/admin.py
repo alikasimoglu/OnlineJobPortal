@@ -1,5 +1,8 @@
 from django.contrib import admin
+
+from mainsite.models.applicants import Applicants
 from mainsite.models.jobs import Job
+from mainsite.models.selected_applicants import Selected
 
 
 @admin.register(Job)
@@ -24,3 +27,7 @@ class JobAdmin(admin.ModelAdmin):
 
     def has_add_permission(self, request):
         return True
+
+
+admin.site.register(Applicants)
+admin.site.register(Selected)

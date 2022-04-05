@@ -17,10 +17,10 @@ JOB_INSIGHT_CHOICES = (
 
 class Job(models.Model):
     is_active = models.BooleanField("Durum (Aktif/Pasif)", default=True)
-    job_title = models.CharField(max_length=155)
+    job_title = models.CharField("İş İlanı Başlığı", max_length=155)
     company = models.CharField("Firma", max_length=100)
-    recruiter = models.ForeignKey(Recruiter, on_delete=models.RESTRICT, related_name='jobs')
-    location = models.CharField(max_length=100)
+    recruiter = models.ForeignKey(Recruiter, on_delete=models.RESTRICT, verbose_name="IK Uzmanı", related_name='jobs')
+    location = models.CharField("Ülke", max_length=100)
     skills_req = models.ManyToManyField(Skill, verbose_name="İstenilen Beceriler")
     job_insight = models.CharField("Çalışma Şekli", max_length=30, choices=JOB_INSIGHT_CHOICES, default='Full Time', null=True)
     description = RichTextUploadingField("İş Açıklaması")
@@ -40,6 +40,6 @@ class Job(models.Model):
         return reverse('mainsite:jobs-detail', args=[self.slug])
 
     class Meta:
-        verbose_name_plural = "İşler"
-        verbose_name = "İş"
+        verbose_name_plural = "İş İlanları"
+        verbose_name = "İş İlanı Ekle"
         ordering = ("-updated",)

@@ -10,7 +10,7 @@ from django.urls import reverse
 
 class JobSeeker(models.Model):
     is_active = models.BooleanField("Durum (Aktif/Pasif)", default=True)
-    profile = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Kullanıcı", primary_key=True)
+    profile = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Profil", primary_key=True)
     email = models.EmailField("Email Adresi", unique=True)
     first_name = models.CharField("İsim", max_length=50)
     last_name = models.CharField("Soyisim", max_length=50)
@@ -41,6 +41,6 @@ class JobSeeker(models.Model):
         return reverse('profiles:jobseeker-detail', args=[self.slug])
 
     class Meta:
-        verbose_name_plural = "Kullanıcılar"
-        verbose_name = "Kullanıcı"
+        verbose_name_plural = "İş Arayanlar"
+        verbose_name = "İş Arayan"
         ordering = ("-date_joined",)
