@@ -25,20 +25,20 @@ class JobSeeker(models.Model):
     short_resume = models.TextField("Kısa Özgeçmiş", max_length=500, help_text="Kısa özgeçmiş alanı zorunlu değildir.", blank=True, null=True)
     cv_file = models.FileField("CV", upload_to='cv_files/', help_text='Desteklenen Dosya Formatı: pdf, doc, docx', blank=True, null=True,
                                validators=[FileExtensionValidator(allowed_extensions=['pdf', 'doc', 'docx'])])
-    slug = models.SlugField("Slug", help_text="Bu alan otomatik olarak oluşturulmaktadır.", max_length=60, unique=True)
-    updated = models.DateTimeField(auto_now=True)
-    date_joined = models.DateTimeField(auto_now_add=True)
+    slug = models.SlugField("Slug", help_text="Bu alan otomatik olarak oluşturulmaktadır.", max_length=60, unique=True, allow_unicode=True)
+    updated = models.DateTimeField("Güncellenme Tarihi", auto_now=True)
+    date_joined = models.DateTimeField("Oluşturulma Tarihi", auto_now_add=True)
 
     def __str__(self):
         return self.email
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.first_name + self.last_name)
+            self.slug = slugify(str(self.pk) + "-" + str(self.first_name) + "-" + str(self.last_name))
         super(JobSeeker, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse('profiles:jobseeker', args=[self.slug])
+        return reverse('profiles:jobseeker-detail', args=[self.slug])
 
     class Meta:
         verbose_name_plural = "Kullanıcılar"

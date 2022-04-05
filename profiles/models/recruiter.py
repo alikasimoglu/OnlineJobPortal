@@ -19,20 +19,20 @@ class Recruiter(models.Model):
     avatar_thumbnail_100x100 = ImageSpecField(source='avatar', processors=[Transpose(), ResizeToFill(100, 100)], format='WEBP', options={'quality': 80})
     profession_title = models.CharField("Başlık/Uzmanlık Alanı", help_text="Ör: İnsan Kaynakları Uzmanı", max_length=200)
     company = models.CharField("Firma", max_length=100)
-    slug = models.SlugField("Slug", help_text="Bu alan otomatik olarak oluşturulmaktadır.", max_length=60, unique=True)
-    updated = models.DateTimeField(auto_now=True)
-    date_joined = models.DateTimeField(auto_now_add=True)
+    slug = models.SlugField("Slug", help_text="Bu alan otomatik olarak oluşturulmaktadır.", max_length=60, unique=True, allow_unicode=True)
+    updated = models.DateTimeField("Güncellenme Tarihi", auto_now=True)
+    date_joined = models.DateTimeField("Oluşturulma Tarihi", auto_now_add=True)
 
     def __str__(self):
-        return self.first_name
+        return self.email
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.first_name + self.last_name)
+            self.slug = slugify(str(self.pk) + "-" + str(self.first_name) + "-" + str(self.last_name))
         super(Recruiter, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse('profiles:recruiter', args=[self.slug])
+        return reverse('profiles:recruiter-detail', args=[self.slug])
 
     class Meta:
         verbose_name_plural = "İK Uzmanları"
