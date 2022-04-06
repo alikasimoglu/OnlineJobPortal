@@ -3,7 +3,7 @@ from django.core.exceptions import PermissionDenied
 
 def user_is_jobseeker(function):
     def wrap(request, *args, **kwargs):
-        if request.user.is_jobseeker:
+        if request.user.is_active and request.user.is_jobseeker:
             return function(request, *args, **kwargs)
         else:
             raise PermissionDenied
@@ -12,7 +12,7 @@ def user_is_jobseeker(function):
 
 def user_is_recruiter(function):
     def wrap(request, *args, **kwargs):
-        if request.user.is_recruiter:
+        if request.user.is_active and request.user.is_recruiter:
             return function(request, *args, **kwargs)
         else:
             raise PermissionDenied

@@ -1,7 +1,4 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
-from django.db import transaction
-from profiles.models import Profile, JobSeeker, Skill
 from django.contrib.auth import authenticate
 
 

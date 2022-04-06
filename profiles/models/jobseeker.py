@@ -41,7 +41,7 @@ class JobSeeker(models.Model):
         super(JobSeeker, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse('profiles:jobseeker-detail', args=[self.slug])
+        return reverse('profiles:jobseeker_profile', args=[self.slug])
 
     class Meta:
         verbose_name_plural = "İş Arayanlar"

@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_filters %}
+
+{% block title %}İş Arayan Kullanıcı Kaydı{% endblock %}
+
+<!--Navigation-->
+{% block navbar %}
+                            <li class="nav-item"><a class="nav-link" data-scroll href="#" target="_top">İş İlanları</a></li>
+                            <li class="nav-item"><a class="nav-link" data-scroll href="#" target="_top">İş Arayanlar</a></li>
+{#                            {% if user.is_authenticated and user.is_jobseeker %}#}
+                            <li class="nav-item"><a class="nav-link active" data-scroll href="{% url 'profiles:jobseeker_profile' %}" target="_top">Profilim</a></li>
+{#                            {% endif %}#}
+                            {% if not user.is_authenticated %}
+                            <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'profiles:signup' %}" target="_top">Kullanıcı Kaydı</a></li>
+                            <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'profiles:login' %}" target="_top">Kullanıcı Girişi</a></li>
+                            {% endif %}
+                            {% if user.is_authenticated %}
+                            <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'profiles:logout' %}" target="_top">({{ user.get_username }}) Çıkış Yap</a></li>
+                            {% endif %}
+{% endblock %}
+<!--End Navigation-->
+
+{% block content %}
+        <!--Content-->
+        <section id="content">
+            <div class="container pt-5">
+                <div class="row">
+                    <h1 class="text-center">Profil Detayları</h1>
+                    <div class="col d-flex justify-content-center">
+                        <div>
+                            {% if messages %}
+                                {% for message in messages %}
+                                    <div class="alert alert-success text-center" role="alert">
+                                        {% if message.tags %}
+                                            <p>{{ message }}</p>
+                                        {% endif %}
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                            <p><strong>Kullanıcı Adı:</strong> {{ user.get_username }}</p>
+                            <p><strong>İsim:</strong> {{ jobseeker.first_name }}</p>
+                            <p><strong>Soyisim:</strong> {{ jobseeker.last_name }}</p>
+                            <p><strong>Email:</strong> {{ jobseeker.email }}</p>
+                            <p><strong>Telefon:</strong> {{ jobseeker.phone }}</p>
+                            <p><strong>Ülke:</strong> {{ jobseeker.country }}</p>
+                            <p><strong>Şehir:</strong> {{ jobseeker.city }}</p>
+                            <p><strong>Resim:</strong> {{ jobseeker.avatar }}</p>
+                            <p><strong>Başlık/Uzmanlık Alanı:</strong> {{ jobseeker.profession_title }}</p>
+                            <p><strong>Beceriler:</strong>
+                            {% for skill in jobseeker.skills.all %}
+                                {{ skill }},
+                            {% endfor %}
+                            </p>
+                            <p><strong>Kısa Özgeçmiş:</strong> {{ jobseeker.short_resume }}</p>
+                            <p><strong>CV:</strong> {{ jobseeker.cv_file }}</p>
+                            <a href="{% url 'profiles:jobseeker_profile_update' %}" class="btn btn-dark" role="button">Profili Güncelle</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--End Content-->
+{% endblock %}
