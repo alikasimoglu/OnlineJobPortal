@@ -1,5 +1,4 @@
 from django.db import models
-from django.conf import settings
 from django.core.validators import FileExtensionValidator
 from imagekit.models import ImageSpecField
 from pilkit.processors import ResizeToFill, Transpose

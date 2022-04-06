@@ -5,12 +5,15 @@
 
 <!--Navigation-->
 {% block navbar %}
-                            <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'mainsite:index' %}" target="_top">Anasayfa</a></li>
                             <li class="nav-item"><a class="nav-link" data-scroll href="#" target="_top">İş İlanları</a></li>
                             <li class="nav-item"><a class="nav-link" data-scroll href="#" target="_top">İş Arayanlar</a></li>
                             <li class="nav-item"><a class="nav-link active" data-scroll href="{% url 'profiles:signup' %}" target="_top">Kullanıcı Kaydı</a></li>
-                            <li class="nav-item"><a class="nav-link" data-scroll href="#" target="_top">İş Arayan Girişi</a></li>
-                            <li class="nav-item"><a class="nav-link" data-scroll href="#" target="_top">IK Girişi</a></li>
+                            {% if not user.is_authenticated %}
+                            <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'profiles:login' %}" target="_top">Kullanıcı Girişi</a></li>
+                            {% endif %}
+                            {% if user.is_authenticated %}
+                            <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'profiles:logout' %}" target="_top">({{ user.get_username }}) Çıkış Yap</a></li>
+                            {% endif %}
 {% endblock %}
 <!--End Navigation-->
 

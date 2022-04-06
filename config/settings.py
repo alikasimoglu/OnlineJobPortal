@@ -111,6 +111,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Extended User Model Settings
 AUTH_USER_MODEL = 'profiles.Profile'
+LOGOUT_REDIRECT_URL = 'profiles:login'
+LOGIN_REDIRECT_URL = 'profiles:signup'
 
 # Internationalization
 LANGUAGE_CODE = 'tr-TR'

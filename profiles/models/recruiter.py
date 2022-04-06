@@ -1,5 +1,4 @@
 from django.db import models
-from django.conf import settings
 from imagekit.models import ImageSpecField
 from pilkit.processors import ResizeToFill, Transpose
 from django.utils.text import slugify
