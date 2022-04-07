@@ -63,8 +63,26 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                         <ul class="navbar-nav text-end gap-3">
-                            {% block navbar %}
-                            {% endblock %}
+                            <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'mainsite:index' %}" target="_top">Anasayfa</a></li>
+                            {% if not user.is_authenticated %}
+                            <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'profiles:signup' %}" target="_top">Kullanıcı Kaydı</a></li>
+                            <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'profiles:login' %}" target="_top">Kullanıcı Girişi</a></li>
+                            {% endif %}
+                            {% if user.is_authenticated %}
+                                {% if user.is_recruiter %}
+                            <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'mainsite:job_list' %}" target="_top">İş İlanları</a></li>
+                            <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'mainsite:job_create' %}" target="_top">İş İlanı Ekle</a></li>
+                            <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'mainsite:applied_applicants_list' %}" target="_top">İş Başvuruları</a></li>
+                            <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'mainsite:jobseeker_profiles' %}" target="_top">İş Arayanlar</a></li>
+                            <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'profiles:recruiter_profile' slug=request.user.recruiter.slug %}" target="_top">Profilim</a></li>
+                                {% elif user.is_jobseeker %}
+                            <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'mainsite:job_list' %}" target="_top">İş İlanları</a></li>
+                            <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'profiles:jobseeker_profile' slug=request.user.jobseeker.slug %}" target="_top">Profilim</a></li>
+                                {% else %}
+                            <li class="nav-item"><a class="nav-link" data-scroll href="http://127.0.0.1:8007/controlme/" target="_top">Admin Paneli</a></li>
+                                {% endif %}
+                            <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'profiles:logout' %}" target="_top">({{ user.get_username }}) Çıkış Yap</a></li>
+                            {% endif %}
                         </ul>
                     </div>
                 </div>

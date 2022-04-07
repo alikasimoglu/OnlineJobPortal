@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_filters %}
+
+{% block title %}Başvurular{% endblock %}
+
+{% block content %}
+        <!--Content-->
+        <section id="content">
+            <div class="container pt-5">
+                <div class="row">
+                    <h1 class="text-center">İş Başvuruları</h1>
+                    <div class="table-responsive pt-4">
+                        <table class="table table-striped table-hover">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>#</th>
+                                    <th>İsim</th>
+                                    <th>İlan Adı</th>
+                                    <th>Başvuru Tarihi</th>
+                                    <th>İncele</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for applicant in applicants %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td class="">{{ applicant.applicant.get_full_name }}</td>
+                                    <td>{{ applicant.job.job_title }}</td>
+                                    <td>{{ applicant.date_posted }}</td>
+                                    <td><a class="btn btn-dark btn-sm" href="{% url 'profiles:jobseeker_profile' applicant.applicant.slug %}" role="button">Profili İncele</a></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--End Content-->
+{% endblock %}

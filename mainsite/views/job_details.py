@@ -3,10 +3,9 @@ from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import DetailView
 from mainsite.models import Job
-from profiles.models import user_is_jobseeker, JobSeeker
 
 
-# @method_decorator([login_required(login_url=reverse_lazy("profiles:login")), user_is_jobseeker], name='dispatch')
+@method_decorator([login_required(login_url=reverse_lazy("profiles:login"))], name='dispatch')
 class JobDetailView(DetailView):
     model = Job
     template_name = 'mainsite/job_detail.html'

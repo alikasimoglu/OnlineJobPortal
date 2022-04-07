@@ -9,7 +9,7 @@ class Applicants(models.Model):
     date_posted = models.DateTimeField("Başvuru Tarihi", auto_now_add=True)
 
     def __str__(self):
-        return self.applicant
+        return self.applicant.profile.username
 
     class Meta:
         verbose_name_plural = "Başvuranlar"

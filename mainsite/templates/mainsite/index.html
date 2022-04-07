@@ -4,39 +4,33 @@
 
 {% block title %}Anasayfa{% endblock %}
 
-<!--Navigation-->
-{% block navbar %}
-                            <li class="nav-item"><a class="nav-link active" data-scroll href="{% url 'mainsite:index' %}" target="_top">Anasayfa</a></li>
-                            {% if user.is_authenticated %}
-                            {% if user.is_recruiter %}
-                            <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'mainsite:job_create' %}" target="_top">İş İlanı Ekle</a></li>
-                            {% endif %}
-                            <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'mainsite:job_list' %}" target="_top">İş İlanları</a></li>
-                            <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'mainsite:jobseeker_profiles' %}" target="_top">İş Arayanlar</a></li>
-                                {% if user.is_jobseeker %}
-                            <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'profiles:jobseeker_profile' slug=request.user.jobseeker.slug %}" target="_top">Profilim</a></li>
-                                {% else %}
-                            <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'profiles:recruiter_profile' slug=request.user.recruiter.slug %}" target="_top">Profilim</a></li>
-                                {% endif %}
-                            {% endif %}
-                            {% if not user.is_authenticated %}
-                            <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'profiles:signup' %}" target="_top">Kullanıcı Kaydı</a></li>
-                            <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'profiles:login' %}" target="_top">Kullanıcı Girişi</a></li>
-                            {% endif %}
-                            {% if user.is_authenticated %}
-                            <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'profiles:logout' %}" target="_top">({{ user.get_username }}) Çıkış Yap</a></li>
-                            {% endif %}
-{% endblock %}
-<!--End Navigation-->
-
 {% block content %}
         <!--Content-->
         <section id="content">
             <div class="container pt-5">
-                <div class="row d-flex justify-content-center">
-                    <h1 class="text-center">Anasayfa</h1>
-                    <div class="col-6 pt-4">
-                        <p>Text</p>
+                <div class="row">
+                    <div class="card text-white bg-dark mb-3">
+                        <div class="card-header h1 text-center">Online Job Portal Projesi</div>
+                        <div class="card-body">
+                            <h3 class="card-title">PROJE BİLGİ FORMU</h3>
+                            <p class="card-text">Farklı alanlardan insan kaynakları uzmanının açık pozisyonlarını tek bir platformda nasıl yayınladığını ve bunun ilgili adaylara nasıl ulaştığını hiç merak ettiniz mi? Django projesi ile iş arama portalı oluşturarak kendiniz öğrenebilirsiniz.
+                            <h4 class="card-title">Portal aşağıdaki özellikleri içerecektir</h4>
+                            <h5 class="card-title">Kayıt ve oturum açma:</h5>
+                            <p>Hem yönetici hem de iş arayan taraflarında bir kayıt ve oturum açma sayfası sağlanır. Yönetici, kullanıcı kayıtlarını kontrol edebilirken, iş arayan, platformda iş arama, iş başvurusu vb. gibi amaçlanan faaliyetleri kaydolarak veya oturum açarak gerçekleştirebilir.</p>
+                            <h5 class="card-title">Tercihe göre iş ilanları:</h5>
+                            <p>Kullanıcının tercihi, uygulamadaki bir filtreleme mekanizması aracılığıyla toplanabilir. Örneğin, birisi yalnızca bir Django projeleri geliştirici işi istiyorsa, bununla ilgili iş ilanları kişinin akışında görüntülenebilir.</p>
+                            <h5 class="card-title">Profil yönetimi:</h5>
+                            <p>Kullanıcı, tercihlerine göre güncelleyerek, silerek veya veri ekleyerek profilini yönetebilmelidir. Bir parola sıfırlama mekanizması da uygulanmalıdır.</p>
+                            <h5 class="card-title">Kullanılması istenen minimum teknolojiler:</h5>
+                            <ul>
+                                <li>Python</li>
+                                <li>DJANGO</li>
+                                <li>Html</li>
+                                <li>Css</li>
+                                <li>Js</li>
+                                <li>Postgresql</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>

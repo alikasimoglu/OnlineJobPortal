@@ -1,7 +1,6 @@
 from django.contrib.auth import login
 from django.shortcuts import redirect
 from django.views.generic import CreateView
-
 from profiles.forms import JobSeekerSignUpForm
 from profiles.models import Profile
 

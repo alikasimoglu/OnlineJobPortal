@@ -1,4 +1,6 @@
 from django.urls import path, include
+
+from profiles import views
 from profiles.views import SignUpView, JobSeekerSignUpView, RecruiterSignUpView, \
     JobSeekerProfileUpdateView, JobSeekerProfileView, RecruiterProfileView, RecruiterProfileUpdateView
 from django.contrib.auth import views as auth_views
@@ -17,4 +19,5 @@ urlpatterns = [
     path('ik-uzmani/profil/<slug:slug>/', RecruiterProfileView.as_view(), name='recruiter_profile'),
     path('ik-uzmani/guncelle/<slug:slug>/', RecruiterProfileUpdateView.as_view(), name='recruiter_profile_update'),
 
+    path("ilana-basvur/<int:job_id>/", views.apply_job_view, name="apply_job"),
 ]

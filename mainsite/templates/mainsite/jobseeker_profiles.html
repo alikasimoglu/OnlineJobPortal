@@ -4,31 +4,6 @@
 
 {% block title %}İş Arayan Kullanıcılar{% endblock %}
 
-<!--Navigation-->
-{% block navbar %}
-                            <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'mainsite:index' %}" target="_top">Anasayfa</a></li>
-                            {% if user.is_authenticated %}
-                            {% if user.is_recruiter %}
-                            <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'mainsite:job_create' %}" target="_top">İş İlanı Ekle</a></li>
-                            {% endif %}
-                            <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'mainsite:job_list' %}" target="_top">İş İlanları</a></li>
-                            <li class="nav-item"><a class="nav-link active" data-scroll href="{% url 'mainsite:jobseeker_profiles' %}" target="_top">İş Arayanlar</a></li>
-                                {% if user.is_jobseeker %}
-                            <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'profiles:jobseeker_profile' slug=request.user.jobseeker.slug %}" target="_top">Profilim</a></li>
-                                {% else %}
-                            <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'profiles:recruiter_profile' slug=request.user.recruiter.slug %}" target="_top">Profilim</a></li>
-                                {% endif %}
-                            {% endif %}
-                            {% if not user.is_authenticated %}
-                            <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'profiles:signup' %}" target="_top">Kullanıcı Kaydı</a></li>
-                            <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'profiles:login' %}" target="_top">Kullanıcı Girişi</a></li>
-                            {% endif %}
-                            {% if user.is_authenticated %}
-                            <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'profiles:logout' %}" target="_top">({{ user.get_username }}) Çıkış Yap</a></li>
-                            {% endif %}
-{% endblock %}
-<!--End Navigation-->
-
 {% block content %}
         <!--Content-->
         <section id="content">

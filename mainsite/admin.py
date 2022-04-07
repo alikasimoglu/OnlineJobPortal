@@ -2,7 +2,6 @@ from django.contrib import admin
 
 from mainsite.models.applicants import Applicants
 from mainsite.models.jobs import Job
-from mainsite.models.selected_applicants import Selected
 
 
 @admin.register(Job)
@@ -10,9 +9,6 @@ class JobAdmin(admin.ModelAdmin):
     list_display = ["job_title", "recruiter", "company", "date_added", "is_active"]
     list_editable = ("is_active",)
     readonly_fields = ("updated", "date_added", "slug")
-    # prepopulated_fields = {
-    #     'slug': ('name', 'surname'),
-    # }
     fieldsets = (
         ("ANA BİLGİLER", {
             "fields": ("job_title", "company", "recruiter", "slug")
@@ -29,5 +25,21 @@ class JobAdmin(admin.ModelAdmin):
         return True
 
 
-admin.site.register(Applicants)
-admin.site.register(Selected)
+@admin.register(Applicants)
+class ApplicantsAdmin(admin.ModelAdmin):
+    list_display = ["applicant", "job", "date_posted"]
+    readonly_fields = ("date_posted", )
+    fieldsets = (
+        ("ANA BİLGİLER", {
+            "fields": ("applicant", "job")
+        }),
+        ("GENEL BİLGİLER", {
+            "fields": ("date_posted", )
+        })
+    )
+
+    def has_delete_permission(self, request, obj=None):
+        return True
+
+    def has_add_permission(self, request):
+        return True

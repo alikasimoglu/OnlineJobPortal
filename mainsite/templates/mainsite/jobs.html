@@ -1,33 +1,9 @@
 {% extends 'base.html' %}
+{% load is_already_applied %}
 {% load static %}
 {% load crispy_forms_filters %}
 
 {% block title %}İş İlanları{% endblock %}
-
-<!--Navigation-->
-{% block navbar %}
-                            <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'mainsite:index' %}" target="_top">Anasayfa</a></li>
-                            {% if user.is_authenticated %}
-                            {% if user.is_recruiter %}
-                            <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'mainsite:job_create' %}" target="_top">İş İlanı Ekle</a></li>
-                            {% endif %}
-                            <li class="nav-item"><a class="nav-link active" data-scroll href="{% url 'mainsite:job_list' %}" target="_top">İş İlanları</a></li>
-                            <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'mainsite:jobseeker_profiles' %}" target="_top">İş Arayanlar</a></li>
-                                {% if user.is_jobseeker %}
-                            <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'profiles:jobseeker_profile' slug=request.user.jobseeker.slug %}" target="_top">Profilim</a></li>
-                                {% else %}
-                            <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'profiles:recruiter_profile' slug=request.user.recruiter.slug %}" target="_top">Profilim</a></li>
-                                {% endif %}
-                            {% endif %}
-                            {% if not user.is_authenticated %}
-                            <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'profiles:signup' %}" target="_top">Kullanıcı Kaydı</a></li>
-                            <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'profiles:login' %}" target="_top">Kullanıcı Girişi</a></li>
-                            {% endif %}
-                            {% if user.is_authenticated %}
-                            <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'profiles:logout' %}" target="_top">({{ user.get_username }}) Çıkış Yap</a></li>
-                            {% endif %}
-{% endblock %}
-<!--End Navigation-->
 
 {% block content %}
         <!--Content-->
@@ -42,14 +18,20 @@
                                 <div class="col">
                                     <div class="card-body">
                                         <h5 class="card-title">{{ job.job_title }}</h5>
-                                        <p class="card-text">{{ job.job_insight }} - {{ job.location }}</p>
-                                        <p class="card-text text-muted">
+                                        <p class="card-text">{{ job.company }} - {{ job.job_insight }}</p>
+                                        <p class="card-text text-muted">Gereksinimler:
                                             {% for skill in job.skills_req.all %}
                                             {{ skill }}{% if not forloop.last %}, {% endif %}
                                             {% endfor %}
                                         </p>
                                         <p class="card-text">{{ job.description|striptags|escape|truncatechars:120 }}</p>
                                         <a href="{{ job.get_absolute_url }}" class="btn btn-primary">İlanı Görüntüle</a>
+                                        {% if user.is_authenticated %}
+                                            {% is_already_applied job user.id as is_applied %}
+                                            {% if is_applied %}
+                                                <button type="button" class="btn btn-danger disabled">Başvuruldu</button>
+                                            {% endif %}
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>

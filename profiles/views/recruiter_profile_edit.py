@@ -13,10 +13,6 @@ class RecruiterProfileUpdateView(UpdateView):
               'company')
     context_object_name = "recruiter"
     template_name = 'profiles/recruiter_profile_edit.html'
-    # success_url = reverse_lazy("profiles:recruiter_profile")
-
-    # def get_object(self):
-    #     return self.request.user.recruiter
 
     def form_valid(self, form):
         messages.success(self.request, 'İş arayan bilgileri başarıyla güncellendi!')

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from profiles.models import Profile, Skill, JobSeeker, Recruiter, AppliedJobs, SavedJobs
+from profiles.models import Profile, Skill, JobSeeker, Recruiter
 
 
 @admin.register(Profile)
@@ -28,9 +28,6 @@ class JobSeekerAdmin(admin.ModelAdmin):
     list_display = ["email", "first_name", "last_name", "date_joined", "is_active"]
     list_editable = ("is_active",)
     readonly_fields = ("updated", "date_joined", "slug")
-    # prepopulated_fields = {
-    #     'slug': ('name', 'surname'),
-    # }
     fieldsets = (
         ("ANA BİLGİLER", {
             "fields": ("profile", "first_name", "last_name", "slug")
@@ -53,9 +50,6 @@ class RecruiterAdmin(admin.ModelAdmin):
     list_display = ["email", "first_name", "last_name", "date_joined", "is_active"]
     list_editable = ("is_active",)
     readonly_fields = ("updated", "date_joined", "slug")
-    # prepopulated_fields = {
-    #     'slug': ('name', 'surname'),
-    # }
     fieldsets = (
         ("ANA BİLGİLER", {
             "fields": ("profile", "first_name", "last_name", "slug")
@@ -74,5 +68,3 @@ class RecruiterAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Skill)
-admin.site.register(SavedJobs)
-admin.site.register(AppliedJobs)

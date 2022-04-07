@@ -1,6 +1,7 @@
 from django.urls import path
+from mainsite.views import IndexView, JobSeekerProfilesView, JobsView, JobDetailView, JobUpdateView, JobCreateView, \
+    AppliedApplicantsView
 
-from mainsite.views import IndexView, JobSeekerProfilesView, JobsView, JobDetailView, JobUpdateView, JobCreateView
 
 app_name = 'mainsite'
 urlpatterns = [
@@ -10,4 +11,5 @@ urlpatterns = [
     path('is-ilanlari/ilan-detayi/<slug:slug>/', JobDetailView.as_view(), name='job_details'),
     path('is-ilanlari/ilan-guncelle/<slug:slug>/', JobUpdateView.as_view(), name='job_update'),
     path('is-ilani-ekle/', JobCreateView.as_view(), name='job_create'),
+    path('ilan-basvurulari/', AppliedApplicantsView.as_view(), name='applied_applicants_list'),
 ]
