@@ -12,12 +12,12 @@
                     <h1 class="text-center">İş Arayanlar</h1>
                     {% for jobseeker in jobseekers %}
                     <div class="col-4 pt-4">
-                        <div class="card mb-3">
+                        <div class="card">
                             <div class="row g-0">
-                                <div class="col-md-3">
-                                    <img class="img-fluid rounded-start" src="{% if jobseeker.avatar %}{% get_media_prefix %}{{ jobseeker.avatar_thumbnail_100x100 }}{% else %}{% static "/img/no-img.webp" %}{% endif %}" alt="{{ jobseeker.get_full_name }}">
+                                <div class="col-md-4">
+                                    <img class="img-fluid rounded-start" src="{% if jobseeker.avatar %}{% get_media_prefix %}{{ jobseeker.avatar_thumbnail_140x140 }}{% else %}{% static "/img/no-img.webp" %}{% endif %}" alt="{{ jobseeker.get_full_name }}">
                                 </div>
-                                <div class="col-md-9">
+                                <div class="col-md-8">
                                     <div class="card-body">
                                         <h5 class="card-title">{{ jobseeker.get_full_name }}</h5>
                                         <p class="card-text text-muted">{{ jobseeker.profession_title }} - {{ jobseeker.country }}</p>

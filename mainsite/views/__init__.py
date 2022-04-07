@@ -5,3 +5,5 @@ from .job_details import *
 from .job_edit import *
 from .job_create import *
 from .applied_applicants import *
+from .search import *
+from .related_jobs import *

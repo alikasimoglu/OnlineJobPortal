@@ -6,20 +6,21 @@ from profiles.models import Profile, JobSeeker, Skill
 
 class JobSeekerSignUpForm(UserCreationForm):
     email = forms.EmailField(required=True)
-    first_name = forms.CharField(required=True)
-    last_name = forms.CharField(required=True)
-    phone = forms.CharField(required=False)
-    country = forms.CharField(required=True)
-    city = forms.CharField(required=False)
-    avatar = forms.ImageField(required=False)
-    profession_title = forms.CharField(required=True)
+    first_name = forms.CharField(required=True, label="İsim")
+    last_name = forms.CharField(required=True, label="Soyisim")
+    phone = forms.CharField(required=False, label="Telefon")
+    country = forms.CharField(required=True, label="Ülke")
+    city = forms.CharField(required=False, label="Şehir")
+    avatar = forms.ImageField(required=False, label="Profil Resmi")
+    profession_title = forms.CharField(required=True, label="Başlık/Uzmanlık Alanı")
     skills = forms.ModelMultipleChoiceField(
         queryset=Skill.objects.all(),
         widget=forms.CheckboxSelectMultiple,
-        required=True
+        required=True,
+        label="Beceriler"
     )
-    short_resume = forms.CharField(widget=forms.Textarea, required=False)
-    cv_file = forms.FileField(required=False)
+    short_resume = forms.CharField(widget=forms.Textarea, required=False, label="Kısa Özgeçmiş")
+    cv_file = forms.FileField(required=False, label="CV")
 
     class Meta:
         model = Profile

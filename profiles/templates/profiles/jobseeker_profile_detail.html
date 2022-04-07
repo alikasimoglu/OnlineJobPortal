@@ -21,6 +21,7 @@
                                     </div>
                                 {% endfor %}
                             {% endif %}
+                            <img class="img-fluid rounded-start" src="{% if jobseeker.avatar %}{% get_media_prefix %}{{ jobseeker.avatar_thumbnail_140x140 }}{% else %}{% static "/img/no-img.webp" %}{% endif %}" alt="{{ jobseeker.get_full_name }}">
                             <p><strong>Kullanıcı Adı:</strong> {{ jobseeker.profile }}</p>
                             <p><strong>İsim:</strong> {{ jobseeker.first_name }}</p>
                             <p><strong>Soyisim:</strong> {{ jobseeker.last_name }}</p>
@@ -28,11 +29,10 @@
                             <p><strong>Telefon:</strong> {{ jobseeker.phone }}</p>
                             <p><strong>Ülke:</strong> {{ jobseeker.country }}</p>
                             <p><strong>Şehir:</strong> {{ jobseeker.city }}</p>
-                            <p><strong>Resim:</strong> {{ jobseeker.avatar }}</p>
                             <p><strong>Başlık/Uzmanlık Alanı:</strong> {{ jobseeker.profession_title }}</p>
                             <p><strong>Beceriler:</strong>
                             {% for skill in jobseeker.skills.all %}
-                                {{ skill }},
+                                {{ skill }}{% if not forloop.last %}, {% endif %}
                             {% endfor %}
                             </p>
                             <p><strong>Kısa Özgeçmiş:</strong> {{ jobseeker.short_resume }}</p>

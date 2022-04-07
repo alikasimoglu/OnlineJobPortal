@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'crispy_forms',
     'django_cleanup.apps.CleanupConfig',
     'imagekit',
-    'django.contrib.postgres',  # needed for unaccent field lookup
 ]
 
 MIDDLEWARE = [

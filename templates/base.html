@@ -6,49 +6,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-{#    <link rel="manifest" href="https://{{ request.get_host }}/manifest.json">#}
-
     <title>{% block title %}{% endblock %}</title>
-{#    <meta name="title" content="{% block metatitle %}{% endblock %}">#}
-{#    <meta name="description" lang="tr" content="{% block description %}{% endblock %}">#}
-{#    <meta name="keywords" lang="tr" content="{% block keywords %}{% endblock %}">#}
-{#    <link rel="canonical" href="{% block canonical %}{% endblock %}">#}
-
-{#    <meta property="og:locale" content="tr_TR" />#}
-{#    <meta property="og:title" content="{% block ogtitle %}{% endblock %}">#}
-{#    <meta property="og:type" content="{% block ogtype %}{% endblock %}">#}
-{#    <meta property="og:url" content="{% block ogurl %}{% endblock %}">#}
-{#    <meta property="og:description" content="{% block ogdescription %}{% endblock %}">#}
-{#    <meta property="og:image" content="{% block ogimg %}{% endblock %}">#}
-{##}
-{#    <meta name="HandheldFriendly" content="True">#}
-{#    <meta name="MobileOptimized" content="360">#}
-{#    <meta name="mobile-web-app-capable" content=yes >#}
-{#    <meta name="apple-mobile-web-app-capable" content="yes">#}
-{#    <meta name="apple-mobile-web-app-title" content="Dennled">#}
-{#    <meta name="application-name" content="Dennled">#}
-{#    <meta name="theme-color" content="#eeeeee">#}
-{##}
-{#    <link rel="apple-touch-icon" sizes="57x57" href="{% static '/img/favicons/apple-icon-57x57.png' %}">#}
-{#    <link rel="apple-touch-icon" sizes="60x60" href="{% static '/img/favicons/apple-icon-60x60.png' %}">#}
-{#    <link rel="apple-touch-icon" sizes="72x72" href="{% static '/img/favicons/apple-icon-72x72.png' %}">#}
-{#    <link rel="apple-touch-icon" sizes="76x76" href="{% static '/img/favicons/apple-icon-76x76.png' %}">#}
-{#    <link rel="apple-touch-icon" sizes="114x114" href="{% static '/img/favicons/apple-icon-114x114.png' %}">#}
-{#    <link rel="apple-touch-icon" sizes="120x120" href="{% static '/img/favicons/apple-icon-120x120.png' %}">#}
-{#    <link rel="apple-touch-icon" sizes="144x144" href="{% static '/img/favicons/apple-icon-144x144.png' %}">#}
-{#    <link rel="apple-touch-icon" sizes="152x152" href="{% static '/img/favicons/apple-icon-152x152.png' %}">#}
-{#    <link rel="apple-touch-icon" sizes="180x180" href="{% static '/img/favicons/apple-icon-180x180.png' %}">#}
-{#    <link rel="icon" type="image/png" sizes="192x192" href="{% static '/img/favicons/android-icon-192x192.png' %}">#}
-{#    <link rel="icon" type="image/png" sizes="32x32" href="{% static '/img/favicons/favicon-32x32.png' %}">#}
-{#    <link rel="icon" type="image/png" sizes="96x96" href="{% static '/img/favicons/favicon-96x96.png' %}">#}
-{#    <link rel="icon" type="image/png" sizes="16x16" href="{% static '/img/favicons/favicon-16x16.png' %}">#}
-{#    <meta name="msapplication-TileColor" content="#eeeeee">#}
-{#    <meta name="msapplication-TileImage" content="https://dennled.com/static/img/favicons/ms-icon-144x144.png">#}
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="prefetch stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="prefetch stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     <link rel="prefetch stylesheet" type="text/css" href="{% static '/css/style.css' %}" />
-    <!--Header Addons-->{% block headeraddons %}{% endblock %}    <!--End Header Addons-->
 </head>
 <body>
     <header>
@@ -76,6 +37,7 @@
                             <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'mainsite:jobseeker_profiles' %}" target="_top">İş Arayanlar</a></li>
                             <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'profiles:recruiter_profile' slug=request.user.recruiter.slug %}" target="_top">Profilim</a></li>
                                 {% elif user.is_jobseeker %}
+                            <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'mainsite:related_job_list' %}" target="_top">Bana Uygun İş İlanları</a></li>
                             <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'mainsite:job_list' %}" target="_top">İş İlanları</a></li>
                             <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'profiles:jobseeker_profile' slug=request.user.jobseeker.slug %}" target="_top">Profilim</a></li>
                                 {% else %}
@@ -92,30 +54,47 @@
     </header>
 
     <main>
+        {% if user.is_authenticated %}
+        <div class="container pt-5">
+            <div class="row">
+                <div class="col">
+                    <form onkeyup="checkForm()" autocomplete="off" action="{% url 'mainsite:search_results' %}" method="get" class="d-flex" novalidate>
+                        {% csrf_token %}
+                        <div class="form-group col-xxl-10 col-xl-10 col-lg-10 col-md-9 col-sm-7 col-8">
+                            <label class="d-flex flex-column">
+                                <input name="q" type="text" placeholder="Ör: django" required>
+                            </label>
+                        </div>
+                        <div class="form-group col-xxl-2 col-xl-2 col-lg-2 col-md-3 col-sm-5 col-4 ps-2 d-flex flex-column">
+                            <button type="submit" class="btn btn-dark btn-sm" id="search_button">İlan Ara</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endif %}
         <!--Content-->
         {% block content %}
         {% endblock %}
         <!--End Content-->
     </main>
 
-{#    <footer>#}
-{#        <!--Footer-->#}
-{#        <div class="container-fluid footer-copyright">#}
-{#            <div class="container">#}
-{#                <div class="row pt-4 pb-4 align-items-center">#}
-{#                    <div class="col">#}
-{#                        <span>© {% now "Y" %} Online Job Portal</span>#}
-{#                    </div>#}
-{#                    <div class="col text-end">#}
-{#                        <a class="createdby" href="https://alikasimoglu.com/" target="_blank"><img class="pb-1" src="/static/img/alikasimoglu-logo.webp" alt="Created By Ali Kasımoğlu"> Tarafından tasarlandı ve kodlandı</a>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-{#        <!--End Footer-->#}
-{#    </footer>#}
+    <script>
+        var inp  = document.getElementsByTagName("input");
+        var search_button = document.getElementById("search_button");
+        // Disable the button dynamically using javascript
+        search_button.disabled = "disabled";
 
-    <!--Script Addons-->{% block scriptaddons %}{% endblock %}    <!--End Script Addons-->
+        function checkForm() {
+            for (var i = 0; i < inp .length; i++) {
+                if (inp [i].checkValidity() === false) {
+                    search_button.disabled = "disabled";
+                } else {
+                    search_button.disabled = false;
+                }
+            }
+        }
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/ckeditor-full@4.7.3/ckeditor.min.js"></script>
 </body>
