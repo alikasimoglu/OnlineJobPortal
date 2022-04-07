@@ -2,16 +2,16 @@
 {% load static %}
 {% load crispy_forms_filters %}
 
-{% block title %}Anasayfa{% endblock %}
+{% block title %}İş İlanları{% endblock %}
 
 <!--Navigation-->
 {% block navbar %}
-                            <li class="nav-item"><a class="nav-link active" data-scroll href="{% url 'mainsite:index' %}" target="_top">Anasayfa</a></li>
+                            <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'mainsite:index' %}" target="_top">Anasayfa</a></li>
                             {% if user.is_authenticated %}
                             {% if user.is_recruiter %}
                             <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'mainsite:job_create' %}" target="_top">İş İlanı Ekle</a></li>
                             {% endif %}
-                            <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'mainsite:job_list' %}" target="_top">İş İlanları</a></li>
+                            <li class="nav-item"><a class="nav-link active" data-scroll href="{% url 'mainsite:job_list' %}" target="_top">İş İlanları</a></li>
                             <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'mainsite:jobseeker_profiles' %}" target="_top">İş Arayanlar</a></li>
                                 {% if user.is_jobseeker %}
                             <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'profiles:jobseeker_profile' slug=request.user.jobseeker.slug %}" target="_top">Profilim</a></li>
@@ -33,11 +33,29 @@
         <!--Content-->
         <section id="content">
             <div class="container pt-5">
-                <div class="row d-flex justify-content-center">
-                    <h1 class="text-center">Anasayfa</h1>
-                    <div class="col-6 pt-4">
-                        <p>Text</p>
+                <div class="row">
+                    <h1 class="text-center">İş İlanları</h1>
+                    {% for job in jobs %}
+                    <div class="col-4 pt-4">
+                        <div class="card mb-3">
+                            <div class="row g-0">
+                                <div class="col">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ job.job_title }}</h5>
+                                        <p class="card-text">{{ job.job_insight }} - {{ job.location }}</p>
+                                        <p class="card-text text-muted">
+                                            {% for skill in job.skills_req.all %}
+                                            {{ skill }}{% if not forloop.last %}, {% endif %}
+                                            {% endfor %}
+                                        </p>
+                                        <p class="card-text">{{ job.description|striptags|escape|truncatechars:120 }}</p>
+                                        <a href="{{ job.get_absolute_url }}" class="btn btn-primary">İlanı Görüntüle</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                    {% endfor %}
                 </div>
             </div>
         </section>

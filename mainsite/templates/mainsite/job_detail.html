@@ -2,18 +2,21 @@
 {% load static %}
 {% load crispy_forms_filters %}
 
-{% block title %}IK Uzmanı Profil Detayları{% endblock %}
+{% block title %}İş İlanı Detayları{% endblock %}
 
 <!--Navigation-->
 {% block navbar %}
                             <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'mainsite:index' %}" target="_top">Anasayfa</a></li>
                             {% if user.is_recruiter %}
-                            <li class="nav-item"><a class="nav-link" data-scroll href="#" target="_top">İş İlanı Ekle</a></li>
+                            <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'mainsite:job_create' %}" target="_top">İş İlanı Ekle</a></li>
                             {% endif %}
-                            <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'mainsite:job_list' %}" target="_top">İş İlanları</a></li>
+                            <li class="nav-item"><a class="nav-link active" data-scroll href="{% url 'mainsite:job_list' %}" target="_top">İş İlanları</a></li>
                             <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'mainsite:jobseeker_profiles' %}" target="_top">İş Arayanlar</a></li>
-                            {% if user.is_authenticated %}
-                            <li class="nav-item"><a class="nav-link active" data-scroll href="{% url 'profiles:recruiter_profile' slug=request.user.recruiter.slug %}" target="_top">Profilim</a></li>
+                            {% if user.is_authenticated and user.is_jobseeker %}
+                            <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'profiles:jobseeker_profile' slug=request.user.jobseeker.slug %}" target="_top">Profilim</a></li>
+                            {% endif %}
+                            {% if user.is_authenticated and user.is_recruiter %}
+                            <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'profiles:recruiter_profile' slug=request.user.recruiter.slug %}" target="_top">Profilim</a></li>
                             {% endif %}
                             {% if not user.is_authenticated %}
                             <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'profiles:signup' %}" target="_top">Kullanıcı Kaydı</a></li>
@@ -30,7 +33,7 @@
         <section id="content">
             <div class="container pt-5">
                 <div class="row d-flex justify-content-center">
-                    <h1 class="text-center">Profil Detayları</h1>
+                    <h1 class="text-center">İş İlanı Detayları</h1>
                     <div class="col-6 pt-4">
                         <div>
                             {% if messages %}
@@ -42,17 +45,20 @@
                                     </div>
                                 {% endfor %}
                             {% endif %}
-                            <p><strong>Kullanıcı Adı:</strong> {{ user.get_username }}</p>
-                            <p><strong>İsim:</strong> {{ recruiter.first_name }}</p>
-                            <p><strong>Soyisim:</strong> {{ recruiter.last_name }}</p>
-                            <p><strong>Email:</strong> {{ recruiter.email }}</p>
-                            <p><strong>Telefon:</strong> {{ recruiter.phone }}</p>
-                            <p><strong>Ülke:</strong> {{ recruiter.country }}</p>
-                            <p><strong>Resim:</strong> {{ recruiter.avatar }}</p>
-                            <p><strong>Başlık/Uzmanlık Alanı:</strong> {{ recruiter.profession_title }}</p>
-                            <p><strong>Firma:</strong> {{ recruiter.company }}</p>
-                            {% if user.is_authenticated and recruiter.profile.id == user.id %}
-                            <a href="{% url 'profiles:recruiter_profile_update' slug=recruiter.slug %}" class="btn btn-dark" role="button">Profili Güncelle</a>
+                            <p><strong>İlan Başlığı:</strong> {{ job.job_title }}</p>
+                            <p><strong>İlan Tarihi:</strong> {{ job.date_added }}</p>
+                            <p><strong>Firma:</strong> {{ job.company }}</p>
+                            <p><strong>IK Uzmanı:</strong> {{ job.recruiter.get_full_name }}</p>
+                            <p><strong>Çalışma Şekli:</strong> {{ job.job_insight }}</p>
+                            <p><strong>Ülke:</strong> {{ job.location }}</p>
+                            <p><strong>İstenilen Beceriler:</strong>
+                            {% for skill in job.skills_req.all %}
+                                {{ skill }}{% if not forloop.last %}, {% endif %}
+                            {% endfor %}
+                            </p>
+                            <p><strong>İlan Detayları:</strong> {{ job.description|safe }}</p>
+                            {% if user.is_authenticated and job.recruiter.profile.id == user.id %}
+                            <a href="{% url 'mainsite:job_update' slug=job.slug %}" class="btn btn-dark mb-5" role="button">İlanı Güncelle</a>
                             {% endif %}
                         </div>
                     </div>

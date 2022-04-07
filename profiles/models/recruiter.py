@@ -27,15 +27,15 @@ class Recruiter(models.Model):
         return self.email
 
     def get_full_name(self):
-        return self.first_name + "-" + self.last_name
+        return self.first_name + " " + self.last_name
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(str(self.pk) + "-" + str(self.get_full_name()))
+            self.slug = slugify(str(self.pk) + "-" + self.first_name + "-" + self.last_name)
         super(Recruiter, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse('profiles:recruiter-detail', args=[self.slug])
+        return reverse('profiles:recruiter_profile', args=[self.slug])
 
     class Meta:
         verbose_name_plural = "İK Uzmanları"

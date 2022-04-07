@@ -6,11 +6,10 @@
 
 <!--Navigation-->
 {% block navbar %}
+                            <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'mainsite:index' %}" target="_top">Anasayfa</a></li>
                             {% if not user.is_authenticated %}
                             <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'profiles:signup' %}" target="_top">Kullanıcı Kaydı</a></li>
                             <li class="nav-item"><a class="nav-link active" data-scroll href="{% url 'profiles:login' %}" target="_top">Kullanıcı Girişi</a></li>
-                            {% else %}
-                            <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'mainsite:index' %}" target="_top">Anasayfa</a></li>
                             {% endif %}
 {% endblock %}
 <!--End Navigation-->
@@ -19,9 +18,9 @@
         <!--Content-->
         <section id="content">
             <div class="container pt-5">
-                <div class="row">
+                <div class="row d-flex justify-content-center">
                     <h1 class="text-center">Giriş Yapın</h1>
-                    <div class="col d-flex justify-content-center">
+                    <div class="col-6 pt-4">
                         <form method="post">
                             {% csrf_token %}
                             {{ form|crispy }}

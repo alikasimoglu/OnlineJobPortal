@@ -13,10 +13,15 @@ class JobSeekerProfileUpdateView(UpdateView):
               'skills', 'short_resume', 'cv_file')
     context_object_name = "jobseeker"
     template_name = 'profiles/jobseeker_profile_edit.html'
-    success_url = reverse_lazy("profiles:jobseeker_profile")
+    # success_url = reverse_lazy("profiles:jobseeker_profile")
 
-    def get_object(self):
-        return self.request.user.jobseeker
+    # def get_object(self):
+    #     return self.request.user.jobseeker
+
+    # def get_object(self, **kwargs):
+    #     slug = self.kwargs.get("slug")
+    #     view_profile = JobSeeker.objects.get(slug=slug)
+    #     return view_profile
 
     def form_valid(self, form):
         messages.success(self.request, 'İş arayan bilgileri başarıyla güncellendi!')

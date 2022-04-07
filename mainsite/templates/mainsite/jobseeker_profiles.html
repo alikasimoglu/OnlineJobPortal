@@ -2,17 +2,17 @@
 {% load static %}
 {% load crispy_forms_filters %}
 
-{% block title %}Anasayfa{% endblock %}
+{% block title %}İş Arayan Kullanıcılar{% endblock %}
 
 <!--Navigation-->
 {% block navbar %}
-                            <li class="nav-item"><a class="nav-link active" data-scroll href="{% url 'mainsite:index' %}" target="_top">Anasayfa</a></li>
+                            <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'mainsite:index' %}" target="_top">Anasayfa</a></li>
                             {% if user.is_authenticated %}
                             {% if user.is_recruiter %}
                             <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'mainsite:job_create' %}" target="_top">İş İlanı Ekle</a></li>
                             {% endif %}
                             <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'mainsite:job_list' %}" target="_top">İş İlanları</a></li>
-                            <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'mainsite:jobseeker_profiles' %}" target="_top">İş Arayanlar</a></li>
+                            <li class="nav-item"><a class="nav-link active" data-scroll href="{% url 'mainsite:jobseeker_profiles' %}" target="_top">İş Arayanlar</a></li>
                                 {% if user.is_jobseeker %}
                             <li class="nav-item"><a class="nav-link" data-scroll href="{% url 'profiles:jobseeker_profile' slug=request.user.jobseeker.slug %}" target="_top">Profilim</a></li>
                                 {% else %}
@@ -33,11 +33,26 @@
         <!--Content-->
         <section id="content">
             <div class="container pt-5">
-                <div class="row d-flex justify-content-center">
-                    <h1 class="text-center">Anasayfa</h1>
-                    <div class="col-6 pt-4">
-                        <p>Text</p>
+                <div class="row">
+                    <h1 class="text-center">İş Arayanlar</h1>
+                    {% for jobseeker in jobseekers %}
+                    <div class="col-4 pt-4">
+                        <div class="card mb-3">
+                            <div class="row g-0">
+                                <div class="col-md-3">
+                                    <img class="img-fluid rounded-start" src="{% if jobseeker.avatar %}{% get_media_prefix %}{{ jobseeker.avatar_thumbnail_100x100 }}{% else %}{% static "/img/no-img.webp" %}{% endif %}" alt="{{ jobseeker.get_full_name }}">
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ jobseeker.get_full_name }}</h5>
+                                        <p class="card-text text-muted">{{ jobseeker.profession_title }} - {{ jobseeker.country }}</p>
+                                        <a href="{{ jobseeker.get_absolute_url }}" class="btn btn-primary">Profili Görüntüle</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                    {% endfor %}
                 </div>
             </div>
         </section>

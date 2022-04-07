@@ -4,6 +4,7 @@ from profiles.models.skills import Skill
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.utils.text import slugify
 from django.urls import reverse
+from django.utils.crypto import get_random_string
 
 
 JOB_INSIGHT_CHOICES = (
@@ -24,7 +25,7 @@ class Job(models.Model):
     skills_req = models.ManyToManyField(Skill, verbose_name="İstenilen Beceriler")
     job_insight = models.CharField("Çalışma Şekli", max_length=30, choices=JOB_INSIGHT_CHOICES, default='Full Time', null=True)
     description = RichTextUploadingField("İş Açıklaması")
-    slug = models.SlugField("Slug", help_text="Bu alan otomatik olarak oluşturulmaktadır.", max_length=60, unique=True, allow_unicode=True)
+    slug = models.SlugField("Slug", help_text="Bu alan otomatik olarak oluşturulmaktadır.", max_length=60, unique=True, null=True, blank=True, allow_unicode=True)
     updated = models.DateTimeField("Güncellenme Tarihi", auto_now=True)
     date_added = models.DateTimeField("Oluşturulma Tarihi", auto_now_add=True)
 
@@ -33,11 +34,11 @@ class Job(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(str(self.pk) + "-" + str(self.job_title))
+            self.slug = slugify(get_random_string(length=15) + "-" + str(self.job_title))
         super(Job, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse('mainsite:jobs-detail', args=[self.slug])
+        return reverse('mainsite:job_details', args=[self.slug])
 
     class Meta:
         verbose_name_plural = "İş İlanları"

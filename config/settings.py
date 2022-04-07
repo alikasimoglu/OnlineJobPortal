@@ -147,7 +147,8 @@ CKEDITOR_BROWSE_SHOW_DIRS = True
 
 CKEDITOR_CONFIGS = {
     'default': {
-        'toolbar': 'Advanced',
+        'toolbar': 'Basic',
+        'width': '210%',
     },
 }
 
