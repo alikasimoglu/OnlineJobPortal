@@ -21,6 +21,7 @@
                             </thead>
                             <tbody>
                                 {% for applicant in applicants %}
+                                    {% if applicant.job.recruiter.profile.id == user.id %}
                                 <tr>
                                     <td>{{ forloop.counter }}</td>
                                     <td class="">{{ applicant.applicant.get_full_name }}</td>
@@ -28,7 +29,9 @@
                                     <td>{{ applicant.date_posted }}</td>
                                     <td><a class="btn btn-dark btn-sm" href="{% url 'profiles:jobseeker_profile' applicant.applicant.slug %}" role="button">Profili İncele</a></td>
                                 </tr>
+                                    {% endif %}
                                 {% endfor %}
+
                             </tbody>
                         </table>
                     </div>

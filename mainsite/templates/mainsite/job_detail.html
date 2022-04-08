@@ -37,7 +37,7 @@
                             <a href="{% url 'mainsite:job_update' slug=job.slug %}" class="btn btn-dark mb-5" role="button">İlanı Güncelle</a>
                             {% endif %}
 
-                            {% if user.is_authenticated and not job.recruiter.profile.id == user.id %}
+                            {% if user.is_authenticated and not user.is_recruiter %}
                             {% is_already_applied job user.id as is_applied %}
                                 {% if is_applied %}
                                 <button type="button" class="btn btn-danger disabled">Başvuruldu</button>
