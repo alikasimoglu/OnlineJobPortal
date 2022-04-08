@@ -2,6 +2,16 @@
 
 This is a test online job portal project created using Django 4.x. But don't worry this is a fully working project. There is no super-amazing front-end, just back-end codes with minimal html :)
 
+## Before You Begin
+
+1. You should generate SecretKey here <https://djecrety.ir/>
+2. If you are going to use a PostreSQL database, you must first install PostreSQL/pgAdmin 4 on your operating system.
+3. If you don't want to deal with it and don't want to use PostreSQL database, just activate SQL database from config/settings.py by uncommenting it.
+4. If you want to use pasword reset system, you should have a gmail account and in the account security settings; 
+   1. Activate two-factor authentication
+   2. Create App password
+5. In your IDE install project environment requirements we need.
+
 ```bash
 $ git@github.com:alikasimoglu/OnlineJobPortal.git
 ```
