@@ -16,6 +16,5 @@ class JobCreateView(CreateView):
     def get_initial(self):
         user = self.request.user
         initial = super(JobCreateView, self).get_initial()
-        initial['recruiter'] = Recruiter.objects.get(profile=user)
+        initial['recruiter'] = Recruiter.objects.get(profile=user)  # Automatically selects the recruiter in the form.
         return initial
-

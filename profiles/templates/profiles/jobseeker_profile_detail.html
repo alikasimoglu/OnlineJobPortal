@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load crispy_forms_filters %}
 
 {% block title %}İş Arayan Profil Detayları{% endblock %}
 
@@ -21,7 +20,7 @@
                                     </div>
                                 {% endfor %}
                             {% endif %}
-                            <img class="img-fluid rounded-start" src="{% if jobseeker.avatar %}{% get_media_prefix %}{{ jobseeker.avatar_thumbnail_140x140 }}{% else %}{% static "/img/no-img.webp" %}{% endif %}" alt="{{ jobseeker.get_full_name }}">
+                            <img class="img-fluid rounded-start" src="{% get_media_prefix %}{{ jobseeker.avatar_thumbnail_140x140 }}" alt="{{ jobseeker.get_full_name }}">
                             <p><strong>Kullanıcı Adı:</strong> {{ jobseeker.profile }}</p>
                             <p><strong>İsim:</strong> {{ jobseeker.first_name }}</p>
                             <p><strong>Soyisim:</strong> {{ jobseeker.last_name }}</p>

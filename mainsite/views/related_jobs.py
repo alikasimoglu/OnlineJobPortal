@@ -14,7 +14,7 @@ class RelatedJobsView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        user_obj = JobSeeker.objects.get(profile_id=self.request.user.id)
-        object_list = Job.objects.filter(skills_req__profiles__profile_id=user_obj.pk)
+        user_obj = JobSeeker.objects.get(profile_id=self.request.user.id)  # Identifies the user.
+        object_list = Job.objects.filter(skills_req__profiles__profile_id=user_obj.pk)  # Returns the skills of the specified user.
         context['related_jobs'] = object_list.distinct()
         return context

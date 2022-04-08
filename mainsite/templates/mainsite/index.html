@@ -1,6 +1,4 @@
 {% extends 'base.html' %}
-{% load static %}
-{% load crispy_forms_filters %}
 
 {% block title %}Anasayfa{% endblock %}
 
@@ -10,25 +8,35 @@
             <div class="container pt-5">
                 <div class="row">
                     <div class="card text-white bg-dark mb-3">
-                        <div class="card-header h1 text-center">Baykar Online İş Arama Portalı Projesi</div>
+                        <div class="card-header h1 text-center">Baykar Vaka Çalışması</div>
                         <div class="card-body">
                             <h3 class="card-title">PROJE BİLGİ FORMU</h3>
                             <p class="card-text">Farklı alanlardan insan kaynakları uzmanının açık pozisyonlarını tek bir platformda nasıl yayınladığını ve bunun ilgili adaylara nasıl ulaştığını hiç merak ettiniz mi? Django projesi ile iş arama portalı oluşturarak kendiniz öğrenebilirsiniz.
                             <h4 class="card-title">Portal aşağıdaki özellikleri içerecektir</h4>
                             <h5 class="card-title">Kayıt ve oturum açma:</h5>
-                            <p>Hem yönetici hem de iş arayan taraflarında bir kayıt ve oturum açma sayfası sağlanır. Yönetici, kullanıcı kayıtlarını kontrol edebilirken, iş arayan, platformda iş arama, iş başvurusu vb. gibi amaçlanan faaliyetleri kaydolarak veya oturum açarak gerçekleştirebilir.</p>
+                            <p>Hem <del>yönetici</del> <mark>iş veren/İK uzmanı</mark> hem de iş arayan taraflarında bir kayıt ve oturum açma sayfası sağlanır. <del>Yönetici</del> <mark>iş veren/İK uzmanı</mark>, <mark>ilan ekleyip-düzenleyebilir, ilan başvurularını görebilir,</mark> kullanıcı kayıtlarını kontrol edebilirken, iş arayan, platformda iş arama, iş başvurusu vb. gibi amaçlanan faaliyetleri kaydolarak veya oturum açarak gerçekleştirebilir. <mark>Projede kullanıcılar için izinler detaylı olarak ele alınmıştır.</mark></p>
+                            <p class="card-title"><mark>Gerçek Projede Eklenmesi Gereken Minimum Özellikler:</mark></p>
+                            <ol>
+                                <li><mark>İlan silme</mark></li>
+                                <li><mark>İlan bitiş süresi ekleme</mark></li>
+                                <li><mark>İlan için başvuru adayı tercihi belirleyebilme/değiştirebilme</mark></li>
+                                <li><mark>IK Uzmanı için uygun personel arayabilme</mark></li>
+                                <li><mark>İş arayan için başvurulan ilanlar listesini görebilme</mark></li>
+                                <li><mark>İş arayan için ilan başvurusunu geri çekebilme ve bunlar gibi temel özellikler.</mark></li>
+                            </ol>
+                            <p><mark>Elbette tasarım da olmadığından SEO  için gerekli temel ayarlamalar, özellikler eklenmemiştir. Eklenmiş olarak yaptığım örnek site:</mark> <mark><a href="https://dennled.com/" target="_blank">dennled.com</a></mark></p>
                             <h5 class="card-title">Tercihe göre iş ilanları:</h5>
-                            <p>Kullanıcının tercihi, uygulamadaki bir filtreleme mekanizması aracılığıyla toplanabilir. Örneğin, birisi yalnızca bir Django projeleri geliştirici işi istiyorsa, bununla ilgili iş ilanları kişinin akışında görüntülenebilir.</p>
+                            <p>Kullanıcının tercihi, uygulamadaki bir filtreleme mekanizması aracılığıyla toplanabilir. Örneğin, birisi yalnızca bir Django projeleri geliştirici işi istiyorsa, bununla ilgili iş ilanları kişinin akışında görüntülenebilir. <mark>Yaptığım projede kişiye uygun ilanlar, kişinin beceri alanlarına göre otomatik olarak filtrelenerek listelenmektedir.</mark></p>
                             <h5 class="card-title">Profil yönetimi:</h5>
                             <p>Kullanıcı, tercihlerine göre güncelleyerek, silerek veya veri ekleyerek profilini yönetebilmelidir. Bir parola sıfırlama mekanizması da uygulanmalıdır.</p>
                             <h5 class="card-title">Kullanılması istenen minimum teknolojiler:</h5>
                             <ul>
                                 <li>Python</li>
-                                <li>DJANGO</li>
+                                <li>Django</li>
                                 <li>Html</li>
-                                <li>Css</li>
+                                <li>Css <mark>Bootstrap CSS Framework kullandım ama CSS biliyorum :)</mark></li>
                                 <li>Js</li>
-                                <li>Postgresql</li>
+                                <li>Postgresql <mark>Production sürüm haricinde SQLite kullanılması tavsiye edilmektedir. Ancak proje yine de talep üzerine en baştan PostgreSQL ile yapıltı.</mark></li>
                             </ul>
                         </div>
                     </div>

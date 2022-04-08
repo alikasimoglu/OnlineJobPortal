@@ -133,10 +133,11 @@ MEDIA_URL = '/media/'
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles/')  # in production mode
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
+# IMAGEKIT SETTINGS
+IMAGEKIT_DEFAULT_CACHEFILE_STRATEGY = 'imagekit.cachefiles.strategies.Optimistic'
+
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-IMAGEKIT_DEFAULT_CACHEFILE_STRATEGY = 'imagekit.cachefiles.strategies.Optimistic'
 
 # CKEDITOR SETTINGS
 CKEDITOR_UPLOAD_PATH = os.path.join("img/uploads/")
@@ -186,7 +187,7 @@ EMAIL_USE_TLS = False
 # EMAIL_USE_SSL = False  # in production mode
 EMAIL_USE_SSL = True
 EMAIL_HOST_USER = env('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')  # Should use gmail app password for stability reasons.
 EMAIL_ADMIN = env('EMAIL_ADMIN')
 DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
 
