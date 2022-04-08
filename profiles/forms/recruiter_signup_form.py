@@ -6,13 +6,13 @@ from profiles.models import Profile, Recruiter
 
 class RecruiterSignUpForm(UserCreationForm):
     email = forms.EmailField(required=True)
-    first_name = forms.CharField(required=True)
-    last_name = forms.CharField(required=True)
-    phone = forms.CharField(required=False)
-    country = forms.CharField(required=True)
-    avatar = forms.ImageField(required=False)
-    profession_title = forms.CharField(required=True)
-    company = forms.CharField(required=True)
+    first_name = forms.CharField(required=True, label="İsim")
+    last_name = forms.CharField(required=True, label="Soyisim")
+    phone = forms.CharField(required=False, label="Telefon")
+    country = forms.CharField(required=True, label="Ülke")
+    avatar = forms.ImageField(required=False, label="Profil Resmi")
+    profession_title = forms.CharField(required=True, label="Başlık/Uzmanlık Alanı")
+    company = forms.CharField(required=True, label="Firma")
 
     class Meta:
         model = Profile

@@ -1,0 +1,60 @@
+{% load static %}
+<!doctype html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8">
+    <title>SAYFA BULUNAMADI!</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{% static '/img/favicons/favicon.ico' %}" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Barcode+39+Text&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color:#191919;
+        }
+        .notfound {
+            color: #B2B2B2;
+            text-align: center;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            /* bring your own prefixes */
+            transform: translate(-50%, -50%);
+        }
+
+        .code {
+            font-family: 'Libre Barcode 39 Text', cursive;
+            font-size:300px;
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+
+        .text {
+            font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+            font-size: 21px;
+            text-decoration: none;
+        }
+
+        a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        a:hover, a:focus, a:active {
+              text-decoration: underline;
+              color: inherit;
+         }
+
+    </style>
+</head>
+
+<body>
+
+<div class="notfound">
+    <p class="code">404</p>
+    <p class="text">Üzgünüm_ Aradığın her neyse bulunamadı_</p>
+    <p class="text">Ana sayfaya gitmek için <a href="{% url 'mainsite:index' %}">TIKLAYIN_</a></p>
+</div>
+
+</body>
+
+</html>
